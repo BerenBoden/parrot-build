@@ -17,6 +17,7 @@
       - ntpdate
       - flameshot
       - exiftool
+      - keepassxc
     state: latest
   become: true
   become_method: sudo
@@ -88,5 +89,11 @@
 - name: "Install GoLogin"
   shell: |
     wget https://dl.gologin.com/gologin.tar && tar -xf gologin.tar -C ~/Desktop
+  become: true
+  become_method: sudo
+
+- name: "Install Postman"
+  shell: |
+    wget https://dl.pstmn.io/download/latest/linux_64 && tar -xzvf postman-linux-x64.tar.gz -C ~/Desktop
   become: true
   become_method: sudo
