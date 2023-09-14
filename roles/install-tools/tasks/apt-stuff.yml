@@ -79,9 +79,9 @@
 - name: "Install required packages for genymotion"
   apt:
     name:
-      - gnupg
-      - software-properties-common
-      - curl
+      - adb
+      - virtualbox
     state: latest
   become: true
   become_method: sudo
+
