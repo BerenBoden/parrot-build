@@ -85,3 +85,8 @@
   become: true
   become_method: sudo
 
+- name: "Install GoLogin"
+  shell: |
+    wget https://dl.gologin.com/gologin.tar && tar -xf gologin.tar -C ~/Desktop
+  become: true
+  become_method: sudo
