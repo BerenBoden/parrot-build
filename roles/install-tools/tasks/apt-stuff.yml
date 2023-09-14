@@ -20,3 +20,46 @@
     state: latest
   become: true
   become_method: sudo
+
+# HashiCorp Installation Steps for Ubuntu/Debian
+- name: "Install required packages for HashiCorp"
+  apt:
+    name:
+      - gnupg
+      - software-properties-common
+      - curl
+    state: latest
+  become: true
+  become_method: sudo
+
+- name: "Install HashiCorp GPG key"
+  shell: |
+    wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+  become: true
+  become_method: sudo
+
+- name: "Verify HashiCorp GPG key"
+  shell: |
+    gpg --no-default-keyring --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg --fingerprint
+  become: true
+  become_method: sudo
+
+- name: "Add HashiCorp repository"
+  shell: |
+    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+  become: true
+  become_method: sudo
+
+- name: "Update apt cache for HashiCorp"
+  apt: 
+    update_cache: yes 
+    force_apt_get: yes
+  become: true
+  become_method: sudo
+
+- name: "Install Terraform"
+  apt:
+    name: terraform
+    state: latest
+  become: true
+  become_method: sudo
