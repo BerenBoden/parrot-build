@@ -63,3 +63,25 @@
     state: latest
   become: true
   become_method: sudo
+
+- name: "Verify HashiCorp GPG key"
+  shell: |
+    gpg --no-default-keyring --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg --fingerprint
+  become: true
+  become_method: sudo
+
+- name: "Install genymotion"
+  shell: |
+    wget https://dl.genymotion.com/releases/genymotion-3.5.0/genymotion-3.5.0-linux_x64.bin && chmod +x genymotion-3.5.0-linux_x64.bin
+  become: true
+  become_method: sudo
+
+- name: "Install required packages for genymotion"
+  apt:
+    name:
+      - gnupg
+      - software-properties-common
+      - curl
+    state: latest
+  become: true
+  become_method: sudo
