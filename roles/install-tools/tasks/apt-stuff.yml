@@ -47,6 +47,6 @@
 
 - name: "Install Postman"
   shell: |
-    wget https://dl.pstmn.io/download/latest/linux_64 && tar -xzvf postman-linux-x64.tar.gz -C ~/Desktop
+    wget https://dl.pstmn.io/download/latest/linux_64 && tar -xzvf linux_64 -C ~/Desktop
   become: true
   become_method: sudo
