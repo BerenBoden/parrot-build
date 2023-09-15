@@ -30,7 +30,7 @@
   become: true
   become_method: sudo
 
-- name: "Install required packages for genymotion"
+- name: "Install packages for genymotion"
   apt:
     name:
       - adb
@@ -39,14 +39,41 @@
   become: true
   become_method: sudo
 
-- name: "Install GoLogin"
-  shell: |
-    wget https://dl.gologin.com/gologin.tar && tar -xf gologin.tar -C ~/Desktop
+- name: "Install genymotion binary"
+  get_url:
+    url: "https://dl.genymotion.com/releases/genymotion-3.5.0/genymotion-3.5.0-linux_x64.bin"
+    dest: "/home/parrot-security/Desktop/"
   become: true
   become_method: sudo
 
-- name: "Install Postman"
-  shell: |
-    wget https://dl.pstmn.io/download/latest/linux_64 && tar -xzvf linux_64 -C ~/Desktop
+- name: "Make binary executable"
+  command:
+    cmd: "chmod +x /home/parrot-security/genymotion-3.5.0-linux_x64.bin"
   become: true
   become_method: sudo
+
+- name: "Install GoLogin"
+  get_url:
+    url: "https://dl.gologin.com/gologin.tar"
+    dest: "/tmp/gologin.tar"
+  become: true
+
+- name: "Extract GoLogin"
+  unarchive:
+    src: "/tmp/gologin.tar"
+    dest: "/home/parrot-security/Desktop"
+    remote_src: yes
+  become: true
+
+- name: "Download Postman"
+  get_url:
+    url: "https://dl.pstmn.io/download/latest/linux_64"
+    dest: "/tmp/linux_64.tar.gz"
+  become: true
+
+- name: "Extract Postman"
+  unarchive:
+    src: "/tmp/linux_64.tar.gz"
+    dest: "/home/parrot-security/Desktop"
+    remote_src: yes
+  become: true
