@@ -12,6 +12,7 @@
 - name: "Installing Packages"
   package:
     name:
+      - xrdp
       - snapd
       - jq
       - pipx
@@ -22,6 +23,19 @@
     state: latest
   become: true
   become_method: sudo
+
+- name: "Start xrdp service"
+  systemd:
+    name: xrdp
+    state: started
+  become: true
+  become_method: sudo
+
+- name: "Set .xsession content"
+  copy:
+    content: "mate-session\n"
+    dest: "/home/parrot-black/.xsession"
+  become: false
 
 # HashiCorp Installation Steps for Ubuntu/Debian
 - name: "Install Terraform"
@@ -42,13 +56,13 @@
 - name: "Install genymotion binary"
   get_url:
     url: "https://dl.genymotion.com/releases/genymotion-3.5.0/genymotion-3.5.0-linux_x64.bin"
-    dest: "/home/parrot-security/Desktop"
+    dest: "/home/parrot-black/Desktop"
   become: true
   become_method: sudo
 
 - name: "Make binary executable"
   command:
-    cmd: "chmod +x /home/parrot-security/Desktop/genymotion-3.5.0-linux_x64.bin"
+    cmd: "chmod +x /home/parrot-black/Desktop/genymotion-3.5.0-linux_x64.bin"
   become: true
   become_method: sudo
 
@@ -61,7 +75,7 @@
 - name: "Extract GoLogin"
   unarchive:
     src: "/tmp/gologin.tar"
-    dest: "/home/parrot-security/Desktop"
+    dest: "/home/parrot-black/Desktop"
     remote_src: yes
   become: true
 
@@ -74,6 +88,6 @@
 - name: "Extract Postman"
   unarchive:
     src: "/tmp/linux_64.tar.gz"
-    dest: "/home/parrot-security/Desktop"
+    dest: "/home/parrot-black/Desktop"
     remote_src: yes
   become: true
