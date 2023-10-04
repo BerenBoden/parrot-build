@@ -20,6 +20,7 @@
       - flameshot
       - exiftool
       - keepassxc
+      - proxychains
     state: latest
   become: true
   become_method: sudo
@@ -91,3 +92,4 @@
     dest: "/home/parrot-black/Desktop"
     remote_src: yes
   become: true
+
