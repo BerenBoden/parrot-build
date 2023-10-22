@@ -1,9 +1,0 @@
-- name: Add list of onion addresses
-  content: |
-    http://o54hon2e2vj6c7m3aqqu6uyece65by3vgoxxhlqlsvkmacw6a7m7kiad.onion/mulvad
-  dest: /home/parrot-black/Desktop/onions.txt
-
-- name: Download mulvad
-  get_url:
-    url: https://mullvad.net/en/download/app/deb/latest
-    dest: /home/parrot-black/Downloads/.
