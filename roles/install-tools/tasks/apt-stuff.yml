@@ -98,6 +98,6 @@
     url: "https://downloads.slack-edge.com/releases/linux/4.34.121/prod/x64/slack-desktop-4.34.121-amd64.deb"
     dest: "/tmp/slack-desktop-4.34.121-amd64.deb"
 
-- name: 
+- name: "Install Slack"
   apt:
     deb: "/tmp/slack-desktop-4.34.121-amd64.deb"
