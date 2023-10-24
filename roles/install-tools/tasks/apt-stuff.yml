@@ -71,6 +71,7 @@
     url: "https://dl.gologin.com/gologin.tar"
     dest: "/tmp/gologin.tar"
   become: true
+  become_method: sudo
 
 - name: "Extract GoLogin"
   unarchive:
@@ -78,35 +79,65 @@
     dest: "/home/parrot-black/Desktop"
     remote_src: yes
   become: true
+  become_method: sudo
 
 - name: "Download Postman"
   get_url:
     url: "https://dl.pstmn.io/download/latest/linux_64"
-    dest: "/tmp/linux_64.tar.gz"
+    dest: "/tmp/postman.tar.gz"
   become: true
+  become_method: sudo
 
 - name: "Extract Postman"
   unarchive:
-    src: "/tmp/linux_64.tar.gz"
+    src: "/tmp/postman.tar.gz"
     dest: "/home/parrot-black/Desktop"
     remote_src: yes
   become: true
+  become_method: sudo
 
 - name: "Download Slack"
   get_url: 
     url: "https://downloads.slack-edge.com/releases/linux/4.34.121/prod/x64/slack-desktop-4.34.121-amd64.deb"
-    dest: "/tmp/slack-desktop-4.34.121-amd64.deb"
+    dest: "/tmp/slack-desktop-amd64.deb"
+  become: true
+  become_method: sudo
 
 - name: "Install Slack"
   apt:
-    deb: "/tmp/slack-desktop-4.34.121-amd64.deb"
+    deb: "/tmp/slack-desktop-amd64.deb"
+  become: true
+  become_method: sudo
 
 - name: Add list of onion addresses
-  content: |
-    http://o54hon2e2vj6c7m3aqqu6uyece65by3vgoxxhlqlsvkmacw6a7m7kiad.onion/mulvad
-  dest: /home/parrot-black/Desktop/onions.txt
+  copy:
+    content: |
+      http://o54hon2e2vj6c7m3aqqu6uyece65by3vgoxxhlqlsvkmacw6a7m7kiad.onion/mulvad
+    dest: /home/parrot-black/Desktop/onions.txt
 
-- name: Download mulvad
+- name: Download Mullvad
   get_url:
     url: https://mullvad.net/en/download/app/deb/latest
-    dest: /home/parrot-black/Downloads/.
+    dest: /tmp/mullvad-vpn-amd64.deb
+  become: true
+  become_method: sudo
+
+- name: "Install Mullvad"
+  apt:
+    deb: "/tmp/mullvad-vpn-amd64.deb"
+  become: true
+  become_method: sudo
+
+- name: Download Monero GUI
+  get_url: 
+    url: https://downloads.getmonero.org/gui/linux64
+    dest: /tmp/linux64.tar.bz2
+  become: true
+  become_method: sudo
+
+- name: Extract Monero GUI
+  unarchive:
+    src: /tmp/linux64.tar.bz2
+    dest: /usr/local/bin
+  become: true
+  become_method: sudo

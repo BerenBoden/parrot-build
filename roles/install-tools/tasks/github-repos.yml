@@ -45,7 +45,7 @@
     state: absent
   when: build_dir.path is defined
 
-- name: Clone repository
+- name: Clone private repository
   loop:
     - { repo: "git@github.com:BerenBoden/interesting-infrastructure.git", dest: "/home/kali/Desktop/interesting-infrastructure" }
     - { repo: "git@github.com:BerenBoden/burp-suite.git", dest: "/home/kali/Desktop/interesting-infrastructure/burp-suite" }
