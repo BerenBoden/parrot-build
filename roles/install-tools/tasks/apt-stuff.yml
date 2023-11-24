@@ -35,7 +35,7 @@
 - name: "Set .xsession content"
   copy:
     content: "mate-session\n"
-    dest: "/home/parrot-black/.xsession"
+    dest: "/home/{{ansible_user_id}}/.xsession"
   become: false
 
 - name: "Install Terraform"
@@ -56,13 +56,13 @@
 - name: "Install genymotion binary"
   get_url:
     url: "https://dl.genymotion.com/releases/genymotion-3.5.0/genymotion-3.5.0-linux_x64.bin"
-    dest: "/home/parrot-black/Desktop"
+    dest: "/home/{{ansible_user_id}}/Desktop/genymotion-3.5.0-linux_x64.bin"
   become: true
   become_method: sudo
 
 - name: "Make binary executable"
   command:
-    cmd: "chmod +x /home/parrot-black/Desktop/genymotion-3.5.0-linux_x64.bin"
+    cmd: "chmod +x /home/{{ansible_user_id}}/Desktop/genymotion-3.5.0-linux_x64.bin"
   become: true
   become_method: sudo
 
@@ -76,7 +76,7 @@
 - name: "Extract GoLogin"
   unarchive:
     src: "/tmp/gologin.tar"
-    dest: "/home/parrot-black/Desktop"
+    dest: "/home/{{ansible_user_id}}/Desktop"
     remote_src: yes
   become: true
   become_method: sudo
@@ -91,7 +91,7 @@
 - name: "Extract Postman"
   unarchive:
     src: "/tmp/postman.tar.gz"
-    dest: "/home/parrot-black/Desktop"
+    dest: "/home/{{ansible_user_id}}/Desktop"
     remote_src: yes
   become: true
   become_method: sudo
@@ -113,7 +113,7 @@
   copy:
     content: |
       http://o54hon2e2vj6c7m3aqqu6uyece65by3vgoxxhlqlsvkmacw6a7m7kiad.onion/mulvad
-    dest: /home/parrot-black/Desktop/onions.txt
+    dest: /home/{{ansible_user_id}}/Desktop/onions.txt
 
 - name: Download Mullvad
   get_url:
