@@ -83,20 +83,14 @@
   become: true
   become_method: sudo
 
-- name: "Download Postman"
-  get_url:
-    url: "https://dl.pstmn.io/download/latest/linux_64"
-    dest: "/tmp/postman.tar.gz"
-  become: true
-  become_method: sudo
+- name: Download Bruno .deb file
+  ansible.builtin.get_url:
+    url: https://github.com/usebruno/bruno/releases/download/v1.3.2/bruno_1.3.2_amd64_linux.deb
+    dest: /tmp/bruno_1.3.2_amd64_linux.deb
 
-- name: "Extract Postman"
-  unarchive:
-    src: "/tmp/postman.tar.gz"
-    dest: "/home/{{ansible_user_id}}/Desktop"
-    remote_src: yes
-  become: true
-  become_method: sudo
+- name: Install Bruno .deb file
+  ansible.builtin.apt:
+    deb: /tmp/bruno_1.3.2_amd64_linux.deb
 
 - name: "Download Slack"
   get_url: 
