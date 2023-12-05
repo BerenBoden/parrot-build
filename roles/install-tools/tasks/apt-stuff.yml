@@ -14,6 +14,7 @@
       - snapd
       - jq
       - pipx
+      - xclip
       - ntpdate
       - flameshot
       - exiftool
